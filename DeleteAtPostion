@@ -1,0 +1,101 @@
+#include<stdio.h>
+#include<stdlib.h>
+struct node{
+ int data;
+ struct node*link;
+};
+void insert(struct node**q,int d)
+{
+ struct node*temp,*r;
+ temp=*q;
+ if(*q==NULL)
+ {
+  temp=(struct node*)malloc(sizeof(struct node));
+  temp->data=d;
+  temp->link=NULL;
+  *q=temp;
+ }
+ else
+ {
+  temp=*q;
+  while(temp->link!=NULL)
+  {
+   temp=temp->link;
+  }
+  r=(struct node*)malloc(sizeof(struct node));
+  r->data=d;
+  r->link=NULL;
+  temp->link=r;
+  
+ }
+}
+void deleteList(struct node **head, int pos)
+{
+   
+
+  // If linked list is empty 
+   if (*head == NULL) 
+      return; 
+  
+   // Store head node 
+   struct node* temp = *head; 
+  
+    // If head needs to be removed 
+    if (pos == 0) 
+    { 
+        *head = temp->link;   // Change head 
+        free(temp);               // free old head 
+        return; 
+    } 
+  
+    // Find previous node of the node to be deleted 
+    for (int i=0; temp!=NULL && i<pos-1; i++) 
+         temp = temp->link; 
+  
+    // If position is more than number of ndoes 
+    if (temp == NULL || temp->link == NULL) 
+         return; 
+  
+    // Node temp->next is the node to be deleted 
+    // Store pointer to the next of node to be deleted 
+    struct node *r = temp->link->link; 
+  
+    // Unlink the node from linked list 
+    free(temp->link);  // Free memory 
+  
+    temp->link = r;
+ 
+}
+
+ void display(struct node*p)
+ {
+  while(p!=NULL)
+  {
+   printf("%3d",p->data);
+   p=p->link;
+  }
+ }
+
+int main()
+{
+ struct node *p;
+ p=NULL;
+ int n,i,d,data,pos;
+ printf("enter the no of nodes u want in link list");
+ scanf("%d",&n);
+ for(i=0;i<n;i++)
+ {
+  printf("enter value at %d location::",i);
+  scanf("%d",&d);
+  insert(&p,d);
+ }
+ printf("linklist is:");
+ display(p);
+ printf("enter  location to be deleted::");
+  scanf("%d",&pos);
+ printf("list after deletion");
+ deleteList(&p,pos);
+
+display(p);
+return 0;
+}

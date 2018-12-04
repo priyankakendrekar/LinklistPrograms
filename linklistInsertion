@@ -1,0 +1,60 @@
+#include<stdio.h>
+#include<stdlib.h>
+struct node{
+ int data;
+ struct node*link;
+};
+void insert(struct node**q,int d)
+{
+ struct node*temp,*r;
+ temp=*q;
+ if(*q==NULL)
+ {
+  temp=(struct node*)malloc(sizeof(struct node));
+  temp->data=d;
+  temp->link=NULL;
+  *q=temp;
+ }
+ else
+ {
+  temp=*q;
+  while(temp->link!=NULL)
+  {
+   temp=temp->link;
+  }
+  r=(struct node*)malloc(sizeof(struct node));
+  r->data=d;
+  r->link=NULL;
+  temp->link=r;
+  
+ }
+}
+ void display(struct node*p)
+ {
+  while(p!=NULL)
+  {
+   printf("%3d",p->data);
+   p=p->link;
+  }
+ }
+
+int main()
+{
+ struct node *p;
+ p=NULL;
+ int n,i,d;
+ printf("enter the no of nodes u want in link list");
+ scanf("%d",&n);
+ for(i=0;i<n;i++)
+ {
+  printf("enter value at %d location::",i);
+  scanf("%d",&d);
+  insert(&p,d);
+ }
+ printf("linklist is:");
+ display(p);
+
+
+  
+return 0;
+}
